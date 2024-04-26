@@ -1,3 +1,4 @@
+// Form.jsx
 import React, { useState } from "react";
 import { createPost } from "../helpers/axiosHelper";
 
@@ -7,7 +8,7 @@ const initialPost = {
   author: "",
 };
 
-const Form = ({ getPosts }) => {
+const Form = ({ getPosts, toggleForm }) => {
   const [newPost, setNewPost] = useState(initialPost);
   const [response, setResponse] = useState({});
 
@@ -28,6 +29,7 @@ const Form = ({ getPosts }) => {
       await createPost(newPost);
       setNewPost(initialPost);
       getPosts();
+      toggleForm(); // Close the form after adding the post
     } catch (error) {
       console.error("Error creating post:", error);
     }

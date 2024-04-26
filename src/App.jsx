@@ -1,3 +1,4 @@
+// App.jsx
 import { useEffect, useState } from "react";
 import "./App.css";
 import Form from "./components/Form";
@@ -28,15 +29,15 @@ function App() {
     }
   };
 
-  const handelOnClick = () => {
-    setShowForm(true);
+  const toggleForm = () => {
+    setShowForm((prev) => !prev);
   };
-  console.log(posts);
+
   return (
     <div>
       <h1>My Blog</h1>
-      <button onClick={handelOnClick}>New Blog</button>
-      {showForm && <Form getPosts={getPosts} />}
+      <button onClick={toggleForm}>New Blog</button>
+      {showForm && <Form getPosts={getPosts} toggleForm={toggleForm} />}
 
       {!showForm && <List posts={posts} />}
     </div>
