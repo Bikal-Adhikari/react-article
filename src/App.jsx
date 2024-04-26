@@ -5,6 +5,7 @@ import Form from "./components/Form";
 import { fetchPosts } from "./helpers/axiosHelper";
 import List from "./components/List";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -42,6 +43,7 @@ function App() {
       {showForm && <Form getPosts={getPosts} toggleForm={toggleForm} />}
 
       {!showForm && <List posts={posts} />}
+      <Footer />
     </div>
   );
 }

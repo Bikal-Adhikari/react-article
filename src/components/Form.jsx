@@ -1,5 +1,5 @@
 // Form.jsx
-import React, { useState } from "react";
+import { useState } from "react";
 import { createPost } from "../helpers/axiosHelper";
 
 const initialPost = {
