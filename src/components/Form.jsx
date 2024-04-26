@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { createPost } from "../helpers/axiosHelper";
 
 const initialPost = {
@@ -7,16 +7,27 @@ const initialPost = {
   author: "",
 };
 
-// const Form = ({ onPostCreated }) => {
-const Form = () => {
+const Form = ({ getPosts }) => {
   const [newPost, setNewPost] = useState(initialPost);
+  const [response, setResponse] = useState({});
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setNewPost({
+      ...newPost,
+      [name]: value,
+    });
+    if (response.message) {
+      setResponse({});
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await createPost(newPost);
-      // onPostCreated(); // Notify the parent component that a new post has been created
       setNewPost(initialPost);
+      getPosts();
     } catch (error) {
       console.error("Error creating post:", error);
     }
@@ -24,22 +35,42 @@ const Form = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      {response.message && (
+        <div>
+          <div>
+            {response.status === "success" ? (
+              <div>{response.message}</div>
+            ) : (
+              <div>{response.message}</div>
+            )}
+          </div>
+        </div>
+      )}
       <input
         type="text"
         placeholder="Title"
+        aria-label="Title"
+        name="title"
+        required
+        onChange={handleOnChange}
         value={newPost.title}
-        onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
       />
       <textarea
         placeholder="Content"
+        aria-label="Content"
+        name="content"
+        required
+        onChange={handleOnChange}
         value={newPost.content}
-        onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
       ></textarea>
       <input
         type="text"
         placeholder="Author"
+        aria-label="Author"
+        name="author"
+        required
+        onChange={handleOnChange}
         value={newPost.author}
-        onChange={(e) => setNewPost({ ...newPost, author: e.target.value })}
       />
       <button type="submit">Add Post</button>
     </form>

@@ -14,7 +14,7 @@ export const fetchPosts = async () => {
 
 export const createPost = async (postData) => {
   try {
-    const response = await axios.post(`${API_URL}/posts`, postData);
+    const response = await axios.post(API_URL, postData);
     return response.data;
   } catch (error) {
     console.error("Error creating post:", error);

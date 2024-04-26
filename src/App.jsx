@@ -2,35 +2,31 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Form from "./components/Form";
 import { fetchPosts } from "./helpers/axiosHelper";
+import List from "./components/List";
 
 function App() {
   const [posts, setPosts] = useState([]);
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
-    const getPosts = async () => {
-      try {
-        const { status, tasks } = await fetchPosts();
-        if (status === "success") {
-          setPosts(tasks);
-        } else {
-          // Handle error or set default posts state
-          setPosts([]);
-        }
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-        // Handle error or set default posts state
-        setPosts([]);
-      }
-    };
-
     getPosts();
   }, []);
 
-  // const handlePostCreated = async () => {
-  //   const updatedPosts = await fetchPosts();
-  //   setPosts(updatedPosts);
-  // };
+  const getPosts = async () => {
+    try {
+      const { status, tasks } = await fetchPosts();
+      if (status === "success") {
+        setPosts(tasks);
+      } else {
+        // Handle error or set default posts state
+        setPosts([]);
+      }
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      // Handle error or set default posts state
+      setPosts([]);
+    }
+  };
 
   const handelOnClick = () => {
     setShowForm(true);
@@ -40,23 +36,9 @@ function App() {
     <div>
       <h1>My Blog</h1>
       <button onClick={handelOnClick}>New Blog</button>
-      {showForm && <Form />}
-      {/* onPostCreated={handlePostCreated}  */}
-      {!showForm && (
-        <ul>
-          {posts.map((post) => {
-            const { _id, title, content, author, date } = post; // Destructure post here
-            return (
-              <li key={_id}>
-                <h2>{title}</h2>
-                <p>{content}</p>
-                <small>By: {author}</small>
-                <small>{date}</small>
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      {showForm && <Form getPosts={getPosts} />}
+
+      {!showForm && <List posts={posts} />}
     </div>
   );
 }
