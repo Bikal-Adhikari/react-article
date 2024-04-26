@@ -4,6 +4,7 @@ import "./App.css";
 import Form from "./components/Form";
 import { fetchPosts } from "./helpers/axiosHelper";
 import List from "./components/List";
+import Header from "./components/Header";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -35,6 +36,7 @@ function App() {
 
   return (
     <div>
+      <Header />
       <h1>My Blog</h1>
       <button onClick={toggleForm}>New Blog</button>
       {showForm && <Form getPosts={getPosts} toggleForm={toggleForm} />}
