@@ -1,19 +1,22 @@
 import { useState } from "react";
 import { createPost } from "../helpers/axiosHelper";
 
-const Form = ({ onPostCreated }) => {
-  const [newPost, setNewPost] = useState({
-    title: "",
-    content: "",
-    author: "",
-  });
+const initialPost = {
+  title: "",
+  content: "",
+  author: "",
+};
+
+// const Form = ({ onPostCreated }) => {
+const Form = () => {
+  const [newPost, setNewPost] = useState(initialPost);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await createPost(newPost);
-      onPostCreated(); // Notify the parent component that a new post has been created
-      setNewPost({ title: "", content: "", author: "" });
+      // onPostCreated(); // Notify the parent component that a new post has been created
+      setNewPost(initialPost);
     } catch (error) {
       console.error("Error creating post:", error);
     }
