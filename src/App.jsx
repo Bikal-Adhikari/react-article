@@ -42,19 +42,21 @@ function App() {
       <button onClick={handelOnClick}>New Blog</button>
       {showForm && <Form />}
       {/* onPostCreated={handlePostCreated}  */}
-      <ul>
-        {posts.map((post) => {
-          const { _id, title, content, author, date } = post; // Destructure post here
-          return (
-            <li key={_id}>
-              <h2>{title}</h2>
-              <p>{content}</p>
-              <small>By: {author}</small>
-              <small>{date}</small>
-            </li>
-          );
-        })}
-      </ul>
+      {!showForm && (
+        <ul>
+          {posts.map((post) => {
+            const { _id, title, content, author, date } = post; // Destructure post here
+            return (
+              <li key={_id}>
+                <h2>{title}</h2>
+                <p>{content}</p>
+                <small>By: {author}</small>
+                <small>{date}</small>
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </div>
   );
 }
