@@ -36,15 +36,17 @@ function App() {
   };
 
   return (
-    <div>
+    <>
       <Header />
-      <h1>My Blog</h1>
-      <button onClick={toggleForm}>New Blog</button>
-      {showForm && <Form getPosts={getPosts} toggleForm={toggleForm} />}
+      <div className="container">
+        <h1>My Blog</h1>
+        <button onClick={toggleForm}>New Blog</button>
+        {showForm && <Form getPosts={getPosts} toggleForm={toggleForm} />}
 
-      {!showForm && <List posts={posts} />}
+        {!showForm && <List posts={posts} />}
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

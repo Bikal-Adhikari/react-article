@@ -1,6 +1,6 @@
 const List = ({ posts }) => {
   return (
-    <ul>
+    <ul id="postsList">
       {posts?.map((post) => {
         const { _id, title, content, author, date } = post; // Destructure post here
         return (
