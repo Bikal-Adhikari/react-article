@@ -6,8 +6,10 @@ import EditForm from "./EditForm";
 const List = ({ posts, getPosts }) => {
   const [editPost, setEditPost] = useState(null);
 
-  const handleEditClick = (post) => {
-    setEditPost(post);
+  const handleEditClick = (postId) => {
+    // Find the post object based on the postId
+    const postToEdit = posts.find((post) => post._id === postId);
+    setEditPost(postToEdit);
   };
 
   const handleUpdate = async (updatedPostData) => {
@@ -59,7 +61,7 @@ const List = ({ posts, getPosts }) => {
                 <p>{content}</p>
                 <small>By: {author}</small>
                 <small>{date}</small>
-                <button className="edit" onClick={() => handleEditClick(post)}>
+                <button className="edit" onClick={() => handleEditClick(_id)}>
                   Edit
                 </button>
                 <button className="delete" onClick={() => handOnDelete(_id)}>

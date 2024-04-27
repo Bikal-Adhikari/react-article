@@ -151,9 +151,13 @@ button.full-width {
   width: 100%;
 }
 
-/* button:hover {
-  background-color: #3e7c18;
-} */
+button.submit {
+  margin-right: 1rem;
+}
+
+button.cancel {
+  background-color: #c0392b;
+}
 
 ul {
   list-style-type: none;

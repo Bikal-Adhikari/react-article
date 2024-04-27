@@ -85,8 +85,10 @@ const Form = ({ getPosts, toggleForm, postId }) => {
         onChange={handleOnChange}
         value={newPost.author}
       />
-      <button type="submit">Submit</button>
-      <button type="button" onClick={toggleForm}>
+      <button className="submit" type="submit">
+        Submit
+      </button>
+      <button className="cancel" type="button" onClick={toggleForm}>
         Cancel
       </button>
     </form>
