@@ -1,6 +1,6 @@
 // Form.jsx
-import { useState } from "react";
-import { createPost } from "../helpers/axiosHelper";
+import { useState, useEffect } from "react";
+import { createPost, updatePost } from "../helpers/axiosHelper";
 
 const initialPost = {
   title: "",
@@ -8,9 +8,16 @@ const initialPost = {
   author: "",
 };
 
-const Form = ({ getPosts, toggleForm }) => {
+const Form = ({ getPosts, toggleForm, postId }) => {
   const [newPost, setNewPost] = useState(initialPost);
   const [response, setResponse] = useState({});
+
+  useEffect(() => {
+    if (postId) {
+      // Fetch post data based on postId and populate the form
+      // Example: fetchPostById(postId).then((data) => setNewPost(data));
+    }
+  }, [postId]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -26,12 +33,16 @@ const Form = ({ getPosts, toggleForm }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createPost(newPost);
+      if (postId) {
+        await updatePost(postId, newPost);
+      } else {
+        await createPost(newPost);
+      }
       setNewPost(initialPost);
       getPosts();
-      toggleForm(); // Close the form after adding the post
+      toggleForm(); // Close the form after adding/updating the post
     } catch (error) {
-      console.error("Error creating post:", error);
+      console.error("Error creating/updating post:", error);
     }
   };
 
@@ -74,7 +85,10 @@ const Form = ({ getPosts, toggleForm }) => {
         onChange={handleOnChange}
         value={newPost.author}
       />
-      <button type="submit">Add Post</button>
+      <button type="submit">Submit</button>
+      <button type="button" onClick={toggleForm}>
+        Cancel
+      </button>
     </form>
   );
 };

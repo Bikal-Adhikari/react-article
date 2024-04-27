@@ -1,3 +1,4 @@
+// App.jsx
 import { useEffect, useState } from "react";
 import "./App.css";
 import Form from "./components/Form";
@@ -21,18 +22,17 @@ function App() {
       if (status === "success") {
         setPosts(tasks);
       } else {
-        // Handle error or set default posts state
         setPosts([]);
       }
     } catch (error) {
       console.error("Error fetching posts:", error);
-      // Handle error or set default posts state
       setPosts([]);
     }
   };
 
   const toggleForm = () => {
     setShowForm((prev) => !prev);
+    setEditPostId(null); // Reset editPostId when toggling the form
   };
 
   const handleEditClick = (postId) => {

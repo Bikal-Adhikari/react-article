@@ -1,3 +1,4 @@
+// EditForm.jsx
 import { useState, useEffect } from "react";
 
 const EditForm = ({ post, handleUpdate }) => {
@@ -14,7 +15,6 @@ const EditForm = ({ post, handleUpdate }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Send update request to server
     handleUpdate(formData);
   };
 

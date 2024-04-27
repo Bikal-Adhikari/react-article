@@ -1,14 +1,31 @@
 // List.jsx
-
-import React, { useState } from "react";
+import { useState } from "react";
+import { deleteTasks, updatePost } from "../helpers/axiosHelper";
 import EditForm from "./EditForm";
-import { deleteTasks } from "../helpers/axiosHelper";
 
 const List = ({ posts, getPosts }) => {
-  const [editingPost, setEditingPost] = useState(false);
+  const [editPost, setEditPost] = useState(null);
 
-  const handleEditClick = () => {
-    setEditingPost(true);
+  const handleEditClick = (post) => {
+    setEditPost(post);
+  };
+
+  const handleUpdate = async (updatedPostData) => {
+    try {
+      const { status, message } = await updatePost(
+        updatedPostData._id,
+        updatedPostData
+      );
+      if (status === "success") {
+        getPosts();
+        alert(message);
+      } else {
+        alert(message);
+      }
+    } catch (error) {
+      console.error("Error updating post:", error);
+      alert("An error occurred while updating the post.");
+    }
   };
 
   const handOnDelete = async (taskId) => {
@@ -28,50 +45,26 @@ const List = ({ posts, getPosts }) => {
     }
   };
 
-  const handleUpdate = async (updatedPostData) => {
-    // Logic to update post on the server
-    try {
-      // Send update request to server
-      // Handle response
-      console.log("Updated post data:", updatedPostData);
-      // After successful update, fetch updated posts
-      getPosts();
-      // Clear editingPost state
-      setEditingPost(null);
-    } catch (error) {
-      console.error("Error updating post:", error);
-      // Handle error
-    }
-  };
-
   return (
     <div>
-      {editingPost ? (
-        <div className="blog-post">
-          <h2>Edit Post</h2>
-          <EditForm post={editingPost} handleUpdate={handleUpdate} />
-        </div>
+      {editPost ? (
+        <EditForm post={editPost} handleUpdate={handleUpdate} />
       ) : (
         <ul id="postsList">
           {posts?.map((post) => {
             const { _id, title, content, author, date } = post;
             return (
               <li key={_id}>
-                <div className="blog-post">
-                  <h2>{title}</h2>
-                  <p>{content}</p>
-                  <small>By: {author}</small>
-                  <small>{date}</small>
-                  <button
-                    className="edit"
-                    onClick={() => handleEditClick(post)}
-                  >
-                    Edit
-                  </button>
-                  <button className="delete" onClick={() => handOnDelete(_id)}>
-                    Delete
-                  </button>
-                </div>
+                <h2>{title}</h2>
+                <p>{content}</p>
+                <small>By: {author}</small>
+                <small>{date}</small>
+                <button className="edit" onClick={() => handleEditClick(post)}>
+                  Edit
+                </button>
+                <button className="delete" onClick={() => handOnDelete(_id)}>
+                  Delete
+                </button>
               </li>
             );
           })}

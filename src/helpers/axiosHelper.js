@@ -1,3 +1,4 @@
+// axiosHelper.js
 import axios from "axios";
 
 const API_URL = "http://localhost:4000/api/posts";
@@ -25,13 +26,19 @@ export const createPost = async (postData) => {
 export const deleteTasks = async (taskId) => {
   try {
     const { data } = await axios.delete(API_URL + "/" + taskId);
-    console.log(data);
     return data;
   } catch (error) {
-    console.log(error);
-    return {
-      status: "error",
-      message: error.message,
-    };
+    console.error("Error deleting task:", error);
+    throw error;
+  }
+};
+
+export const updatePost = async (postId, updatedPostData) => {
+  try {
+    const { data } = await axios.put(API_URL + "/" + postId, updatedPostData);
+    return data;
+  } catch (error) {
+    console.error(`Error updating post with ID ${postId}:`, error);
+    throw error;
   }
 };
