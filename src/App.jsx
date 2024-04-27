@@ -1,4 +1,3 @@
-// App.jsx
 import { useEffect, useState } from "react";
 import "./App.css";
 import Form from "./components/Form";
@@ -10,6 +9,7 @@ import Footer from "./components/Footer";
 function App() {
   const [posts, setPosts] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [editPostId, setEditPostId] = useState(null);
 
   useEffect(() => {
     getPosts();
@@ -35,15 +35,38 @@ function App() {
     setShowForm((prev) => !prev);
   };
 
+  const handleEditClick = (postId) => {
+    setEditPostId(postId);
+    setShowForm(true);
+  };
+
   return (
     <>
       <Header />
       <div className="container">
-        <h1>My Blog</h1>
-        <button onClick={toggleForm}>New Blog</button>
-        {showForm && <Form getPosts={getPosts} toggleForm={toggleForm} />}
-
-        {!showForm && <List posts={posts} getPosts={getPosts} />}
+        {editPostId === null && (
+          <>
+            <h1>My Blog</h1>
+            {!showForm && <button onClick={toggleForm}>New Blog</button>}
+          </>
+        )}
+        {(showForm || editPostId !== null) && (
+          <Form
+            getPosts={getPosts}
+            toggleForm={() => {
+              setShowForm(false);
+              setEditPostId(null);
+            }}
+            postId={editPostId}
+          />
+        )}
+        {!showForm && editPostId === null && (
+          <List
+            posts={posts}
+            getPosts={getPosts}
+            handleEditClick={handleEditClick}
+          />
+        )}
       </div>
       <Footer />
     </>
