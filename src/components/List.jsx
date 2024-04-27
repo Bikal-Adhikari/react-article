@@ -9,6 +9,8 @@ const List = ({ posts }) => {
             <p>{content}</p>
             <small>By: {author}</small>
             <small>{date}</small>
+            <button className="edit">Edit</button>
+            <button className="delete">Delete</button>
           </li>
         );
       })}
