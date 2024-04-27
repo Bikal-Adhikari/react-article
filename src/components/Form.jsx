@@ -1,4 +1,3 @@
-// Form.jsx
 import { useState, useEffect } from "react";
 import { createPost, updatePost } from "../helpers/axiosHelper";
 
@@ -47,7 +46,7 @@ const Form = ({ getPosts, toggleForm, postId }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} id="newPostForm" method="post">
       {response.message && (
         <div>
           <div>
@@ -75,6 +74,7 @@ const Form = ({ getPosts, toggleForm, postId }) => {
         required
         onChange={handleOnChange}
         value={newPost.content}
+        rows="10"
       ></textarea>
       <input
         type="text"
@@ -85,11 +85,8 @@ const Form = ({ getPosts, toggleForm, postId }) => {
         onChange={handleOnChange}
         value={newPost.author}
       />
-      <button className="submit" type="submit">
+      <button className="full-width" type="submit">
         Submit
-      </button>
-      <button className="cancel" type="button" onClick={toggleForm}>
-        Cancel
       </button>
     </form>
   );

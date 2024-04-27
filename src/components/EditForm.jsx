@@ -19,7 +19,7 @@ const EditForm = ({ post, handleUpdate }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} id="editForm" method="post">
       <input
         type="text"
         name="title"
@@ -30,6 +30,7 @@ const EditForm = ({ post, handleUpdate }) => {
         name="content"
         value={formData.content}
         onChange={handleChange}
+        rows="10"
       ></textarea>
       <input
         type="text"
@@ -37,7 +38,9 @@ const EditForm = ({ post, handleUpdate }) => {
         value={formData.author}
         onChange={handleChange}
       />
-      <button type="submit">Update</button>
+      <button className="full-width" type="submit">
+        Update
+      </button>
     </form>
   );
 };

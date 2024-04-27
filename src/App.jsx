@@ -1,4 +1,3 @@
-// App.jsx
 import { useEffect, useState } from "react";
 import "./App.css";
 import Form from "./components/Form";
@@ -6,11 +5,13 @@ import { fetchPosts } from "./helpers/axiosHelper";
 import List from "./components/List";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import NewBlogButton from "./components/NewBlogButton";
 
 function App() {
   const [posts, setPosts] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editPostId, setEditPostId] = useState(null);
+  const [isEditClicked, setIsEditClicked] = useState(false);
 
   useEffect(() => {
     getPosts();
@@ -33,11 +34,13 @@ function App() {
   const toggleForm = () => {
     setShowForm((prev) => !prev);
     setEditPostId(null); // Reset editPostId when toggling the form
+    setIsEditClicked(false); // Reset isEditClicked when toggling the form
   };
 
   const handleEditClick = (postId) => {
     setEditPostId(postId);
     setShowForm(true);
+    setIsEditClicked(true); // Set isEditClicked to true when edit button is clicked
   };
 
   return (
@@ -47,7 +50,9 @@ function App() {
         {editPostId === null && (
           <>
             <h1>My Blog</h1>
-            {!showForm && <button onClick={toggleForm}>New Blog</button>}
+            {!showForm && !isEditClicked && (
+              <NewBlogButton toggleForm={toggleForm} />
+            )}
           </>
         )}
         {(showForm || editPostId !== null) && (
@@ -56,6 +61,7 @@ function App() {
             toggleForm={() => {
               setShowForm(false);
               setEditPostId(null);
+              setIsEditClicked(false); // Reset isEditClicked when closing the form
             }}
             postId={editPostId}
           />
@@ -64,7 +70,8 @@ function App() {
           <List
             posts={posts}
             getPosts={getPosts}
-            handleEditClick={handleEditClick}
+            // handleEditClick={handleEditClick}
+            isEditClicked={isEditClicked} // Pass isEditClicked as a prop to List component
           />
         )}
       </div>

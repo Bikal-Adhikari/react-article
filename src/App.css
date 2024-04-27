@@ -42,26 +42,22 @@ body {
   background-size: 80px 80px;
   line-height: 1.6;
   display: grid;
-  /* grid-template-rows: auto 1fr auto;  */
-  grid-template-areas:
-    "header"
-    "content"
-    "footer";
+  min-height: 100vh;
 }
 
 .container {
   grid-area: content;
   max-width: 800px;
-  margin: 50px auto;
+  margin: 60px auto;
   background-color: #ffffff;
   padding: 20px 40px;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   flex: 1;
+  min-height: 80vh;
 }
 
 header {
-  grid-area: header;
   background: green;
   color: #ffffff;
   padding: 20px 0;
@@ -71,9 +67,6 @@ footer {
   background-color: #333333;
   color: #ffffff;
   padding: 20px 0;
-  grid-area: footer;
-  /* grid-row-start: 3;
-  grid-row-end: 4; */
 }
 
 header .navbar {
