@@ -43,7 +43,7 @@ function App() {
         <button onClick={toggleForm}>New Blog</button>
         {showForm && <Form getPosts={getPosts} toggleForm={toggleForm} />}
 
-        {!showForm && <List posts={posts} />}
+        {!showForm && <List posts={posts} getPosts={getPosts} />}
       </div>
       <Footer />
     </>

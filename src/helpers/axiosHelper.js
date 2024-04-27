@@ -21,3 +21,17 @@ export const createPost = async (postData) => {
     throw error;
   }
 };
+
+export const deleteTasks = async (taskId) => {
+  try {
+    const { data } = await axios.delete(API_URL + "/" + taskId);
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      message: error.message,
+    };
+  }
+};
