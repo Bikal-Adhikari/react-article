@@ -46,49 +46,52 @@ const Form = ({ getPosts, toggleForm, postId }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} id="newPostForm" method="post">
-      {response.message && (
-        <div>
+    <>
+      <h1>New Posts</h1>
+      <form onSubmit={handleSubmit} id="newPostForm" method="post">
+        {response.message && (
           <div>
-            {response.status === "success" ? (
-              <div>{response.message}</div>
-            ) : (
-              <div>{response.message}</div>
-            )}
+            <div>
+              {response.status === "success" ? (
+                <div>{response.message}</div>
+              ) : (
+                <div>{response.message}</div>
+              )}
+            </div>
           </div>
-        </div>
-      )}
-      <input
-        type="text"
-        placeholder="Title"
-        aria-label="Title"
-        name="title"
-        required
-        onChange={handleOnChange}
-        value={newPost.title}
-      />
-      <textarea
-        placeholder="Content"
-        aria-label="Content"
-        name="content"
-        required
-        onChange={handleOnChange}
-        value={newPost.content}
-        rows="10"
-      ></textarea>
-      <input
-        type="text"
-        placeholder="Author"
-        aria-label="Author"
-        name="author"
-        required
-        onChange={handleOnChange}
-        value={newPost.author}
-      />
-      <button className="full-width" type="submit">
-        Submit
-      </button>
-    </form>
+        )}
+        <input
+          type="text"
+          placeholder="Title"
+          aria-label="Title"
+          name="title"
+          required
+          onChange={handleOnChange}
+          value={newPost.title}
+        />
+        <textarea
+          placeholder="Content"
+          aria-label="Content"
+          name="content"
+          required
+          onChange={handleOnChange}
+          value={newPost.content}
+          rows="10"
+        ></textarea>
+        <input
+          type="text"
+          placeholder="Author"
+          aria-label="Author"
+          name="author"
+          required
+          onChange={handleOnChange}
+          value={newPost.author}
+        />
+        <button className="full-width" type="submit">
+          Submit
+        </button>
+      </form>
+    </>
   );
 };
 

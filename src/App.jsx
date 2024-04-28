@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Form from "./components/Form";
-import { fetchPosts } from "./helpers/axiosHelper";
+import { fetchPosts, updatePost } from "./helpers/axiosHelper";
 import List from "./components/List";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -43,16 +43,32 @@ function App() {
     setIsEditClicked(true); // Set isEditClicked to true when edit button is clicked
   };
 
+  const handleUpdate = async (updatedPostData) => {
+    try {
+      const { status, message } = await updatePost(
+        updatedPostData._id,
+        updatedPostData
+      );
+      if (status === "success") {
+        getPosts();
+        alert(message);
+      } else {
+        alert(message);
+      }
+    } catch (error) {
+      console.error("Error updating post:", error);
+      alert("An error occurred while updating the post.");
+    }
+  };
+
   return (
     <>
       <Header />
       <div className="container">
-        {editPostId === null && (
+        {editPostId === null && !showForm && (
           <>
             <h1>My Blog</h1>
-            {!showForm && !isEditClicked && (
-              <NewBlogButton toggleForm={toggleForm} />
-            )}
+            {!isEditClicked && <NewBlogButton toggleForm={toggleForm} />}
           </>
         )}
         {(showForm || editPostId !== null) && (
@@ -70,8 +86,9 @@ function App() {
           <List
             posts={posts}
             getPosts={getPosts}
-            // handleEditClick={handleEditClick}
-            isEditClicked={isEditClicked} // Pass isEditClicked as a prop to List component
+            handleEditClick={handleEditClick}
+            isEditClicked={isEditClicked}
+            handleUpdate={handleUpdate} // Pass isEditClicked as a prop to List component
           />
         )}
       </div>

@@ -1,4 +1,4 @@
-const NewBlogButton = ({toggleForm}) => {
+const NewBlogButton = ({ toggleForm }) => {
   return <button onClick={toggleForm}>New Blog</button>;
 };
 

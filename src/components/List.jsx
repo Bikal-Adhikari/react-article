@@ -1,32 +1,9 @@
-// List.jsx
 import { useState } from "react";
-import { deleteTasks, updatePost } from "../helpers/axiosHelper";
+import { deleteTasks } from "../helpers/axiosHelper";
 import EditForm from "./EditForm";
 
 const List = ({ posts, getPosts }) => {
   const [editPost, setEditPost] = useState(null);
-
-  const handleEditClick = (post) => {
-    setEditPost(post);
-  };
-
-  const handleUpdate = async (updatedPostData) => {
-    try {
-      const { status, message } = await updatePost(
-        updatedPostData._id,
-        updatedPostData
-      );
-      if (status === "success") {
-        getPosts();
-        alert(message);
-      } else {
-        alert(message);
-      }
-    } catch (error) {
-      console.error("Error updating post:", error);
-      alert("An error occurred while updating the post.");
-    }
-  };
 
   const handOnDelete = async (taskId) => {
     if (window.confirm("Are you sure you want to delete this task?")) {
@@ -43,6 +20,14 @@ const List = ({ posts, getPosts }) => {
         alert("An error occurred while deleting the task.");
       }
     }
+  };
+
+  const handleEditClick = (post) => {
+    setEditPost(post);
+  };
+
+  const handleUpdate = () => {
+    setEditPost(null);
   };
 
   return (
