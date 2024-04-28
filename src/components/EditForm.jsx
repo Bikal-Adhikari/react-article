@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { updatePost } from "../helpers/axiosHelper";
-import NewBlogButton from "./NewBlogButton";
 
 const EditForm = ({ post, handleUpdate }) => {
   const [formData, setFormData] = useState(post);
